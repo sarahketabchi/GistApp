@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<% flash.each do |key, message| %>
+  <div class="flash"><%= "#{key.upcase}: #{message}" %></div>
+<% end %>
+
+<%= render :partial => 'layouts/header' %>
+
 <%= yield %>
 
 </body>

@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218191052) do
+ActiveRecord::Schema.define(:version => 20130218201402) do
+
+  create_table "favorites", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "gist_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "favorites", ["user_id", "gist_id"], :name => "index_favorites_on_user_id_and_gist_id", :unique => true
+
+  create_table "gist_files", :force => true do |t|
+    t.text     "body"
+    t.integer  "gist_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "gists", :force => true do |t|
     t.string   "title"
@@ -22,8 +38,9 @@ ActiveRecord::Schema.define(:version => 20130218191052) do
 
   create_table "users", :force => true do |t|
     t.string   "user_name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "session_token"
   end
 
   add_index "users", ["user_name"], :name => "index_users_on_user_name"

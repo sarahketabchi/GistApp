@@ -1,0 +1,11 @@
+<h1><%= @user.user_name %></h1>
+
+<% if @user.gists.empty? %>
+  <p>User has no gists!</p>
+<% else %>
+  <ul>
+    <% @user.gists.each do |gist| %>
+      <li><%= link_to gist.title, gist_path(gist) %></li>
+    <% end %>
+  </ul>
+<% end %>
