@@ -2,6 +2,8 @@
 
 <ul>
   <% @gists.each do |gist| %>
-    <li><%= link_to @gist.title, gist_path(@gist) %></li>
+    <li><%= link_to gist.title, gist_path(gist) %></li>
   <% end %>
 </ul>
+
+

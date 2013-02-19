@@ -1,0 +1,23 @@
+<%= simple_form_for(@gist) do |f| %>
+  <%= f.hidden_field :user_id, :value => @user.id %>
+  <%= f.input :title %>
+
+  <p>Files:</p>
+  <%= f.simple_fields_for :files do |files_form| %>
+    <div class="gist-file-form">
+      <%= files_form.input :body %>
+      <br>
+      <a href="#" class="terminator">Remove file</a>
+    </div>
+  <% end %>
+
+  <%= f.button :submit %>
+<% end %>
+
+<script>
+  $(function () {
+    $(".terminator").click(function (event) {
+      $(event.target).parent().toggle();
+      });
+  });
+</script>

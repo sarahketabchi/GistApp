@@ -1,1 +1,8 @@
-<%= link_to "Log out", sessions_path, :method => :delete %>
+<%= link_to "Home", root_path %>
+
+<% if logged_in? %>
+  <%= link_to "Create a new gist!", new_gist_path %>
+  <%= link_to "Log out", sessions_path, :method => :delete %><br>
+<% else %>
+  <%= link_to "Sign up", new_user_path %>
+<% end %>

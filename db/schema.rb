@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130218201402) do
   end
 
   add_index "favorites", ["user_id", "gist_id"], :name => "index_favorites_on_user_id_and_gist_id", :unique => true
+  add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
 
   create_table "gist_files", :force => true do |t|
     t.text     "body"

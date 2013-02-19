@@ -1,1 +1,25 @@
 <%= @gist.title %>
+
+<p>Files:</p>
+<ul>
+  <% @gist_files.each do |file| %>
+    <li class="file-body">
+      <%= file.body %>
+    </li>
+  <% end %>
+</ul>
+
+<%= button_to "Favorite", gist_favorite_path(@gist), :action => "create", :remote => true, :id => "fav", :hidden => @favorited %>
+
+
+<%= button_to "Unfavorite", gist_favorite_path(@gist), :method => :delete, :remote => true, :hidden => (not @favorited), :id => "unfav" %>
+
+
+
+<script type="text/javascript">
+  $(function () {
+    $('.button_to').on('ajax:success', function () {
+      $('#fav, #unfav').toggle();
+    });
+  });
+</script>
