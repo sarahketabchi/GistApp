@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       @user.session_token = session_token
       @user.save!
       session[:session_token] = session_token
-      redirect_to user_path(@user)
+      redirect_to root_path
     else
       flash[:error] = "Username not found"
       render "new"

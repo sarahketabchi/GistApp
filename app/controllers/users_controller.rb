@@ -7,7 +7,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      redirect_to user_path(@user)
+      session_token = SecureRandom.base64
+      @user.session_token = session_token
+      @user.save!
+      session[:session_token] = session_token
+      redirect_to root_path
     else
       flash[:error] = "Invalid username"
       render 'new'

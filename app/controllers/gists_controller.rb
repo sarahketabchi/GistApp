@@ -35,5 +35,12 @@ class GistsController < ApplicationController
     @gist = Gist.find(params[:id])
     @gist_files = @gist.files
     @favorited = favorited?(@user.id, @gist.id)
+    @tagging = Tagging.new
+  end
+
+  def update
+    @gist = Gist.find(params[:id])
+    @gist.update_attributes!(params[:gist])
+    redirect_to gist_path(@gist)
   end
 end

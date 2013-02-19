@@ -1,5 +1,27 @@
 <%= @gist.title %>
 
+<%= button_to "Delete this gist!", method: :delete %>
+
+<p>Tags:</p>
+<ul>
+  <% @gist.tags.each do |tag| %>
+    <li class="tag">
+      <%= tag.topic %>
+    </li>
+  <% end %>
+</ul>
+
+<div id="tag-select"></div>
+<ul class="all-tags">
+
+</ul>
+
+<%= simple_form_for(@gist) do |f| %>
+  <%= f.association :tags, :label_method => :topic, :as => :check_boxes %>
+  <%= f.button :submit %>
+<% end %>
+
+
 <p>Files:</p>
 <ul>
   <% @gist_files.each do |file| %>
@@ -21,5 +43,14 @@
     $('.button_to').on('ajax:success', function () {
       $('#fav, #unfav').toggle();
     });
+
+    var inputDiv = new TagSelector.InputDiv($("#tag-select"), TagSelector.Tag.fetchAll);
+    inputDiv.insertTextInput();
+
+    $(".input-box").focusin(inputDiv.renderList);
+    $(".input-box").focusout(inputDiv.removeList);
+
+    $(".input-box").keyup(inputDiv.filterList);
+
   });
 </script>
