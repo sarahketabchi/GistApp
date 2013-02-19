@@ -3,14 +3,17 @@
   <%= f.input :title %>
 
   <p>Files:</p>
-  <%= f.simple_fields_for :files do |files_form| %>
-    <div class="gist-file-form">
-      <%= files_form.input :body %>
-      <br>
-      <a href="#" class="terminator">Remove file</a>
-    </div>
-  <% end %>
+  <div class="gists-wrapper">
+    <%= f.simple_fields_for :files do |files_form| %>
+      <div class="gist-file-form">
+        <%= files_form.input :body %>
+        <br>
+        <a href="#" class="terminator">Remove file</a>
+      </div>
+    <% end %>
+  </div>
 
+  <a href="#" class="gaiam">Add file</a>
   <%= f.button :submit %>
 <% end %>
 
@@ -18,6 +21,18 @@
   $(function () {
     $(".terminator").click(function (event) {
       $(event.target).parent().remove();
+    });
+
+    $(".gaiam").click(function (event) {
+      var newId = new Date().getTime()
+      var newString = "gist[files_attributes][" + newId + "][body]"
+      var newGistHtml = $(".gist-file-form:first").clone().find("textarea").attr("name", newString).end();
+      console.log(newGistHtml);
+
+      $(".gists-wrapper").append(newGistHtml);
+      $(".terminator").click(function (event) {
+        $(event.target).parent().remove();
       });
+    });
   });
 </script>
